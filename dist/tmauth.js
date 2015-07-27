@@ -11,7 +11,9 @@
     });
 
   // Modules
-  angular.module('tmauth.directives', []);
+  angular.module('tmauth.directives', [
+      'tmauth.controllers'
+  ]);
   angular.module('tmauth.constants', []);
   angular.module('tmauth.filters', []);
   angular.module('tmauth.services', [
