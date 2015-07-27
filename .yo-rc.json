@@ -1,0 +1,28 @@
+{
+  "generator-angularjs-library": {
+    "props": {
+      "author": {
+        "name": "Robin Hafen",
+        "email": "robin.hafen@gmail.com"
+      },
+      "libraryName": {
+        "original": "tmauth",
+        "camelized": "tmauth",
+        "dasherized": "tmauth",
+        "slugified": "tmauth",
+        "parts": [
+          "tmauth"
+        ]
+      },
+      "includeModuleDirectives": true,
+      "includeModuleFilters": true,
+      "includeModuleServices": true,
+      "includeAngularModuleResource": false,
+      "includeAngularModuleCookies": false,
+      "includeAngularModuleSanitize": false,
+      "librarySrcDirectory": "src/tmauth",
+      "libraryUnitTestDirectory": "test/unit/tmauth",
+      "libraryUnitE2eDirectory": "test/e2e/tmauth"
+    }
+  }
+}
