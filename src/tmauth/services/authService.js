@@ -1,6 +1,6 @@
 angular.module('tmauth.services')
-.service('authService', ['$http', 'session', 'User', 'jwtUtil', '$window', '$rootScope', 'AUTH_EVENTS',
-         function($http, session, User, jwtUtil, $window, $rootScope, AUTH_EVENTS) {
+.service('authService', ['$http', 'session', 'User', '$rootScope', 'AUTH_EVENTS',
+         function($http, session, User, $rootScope, AUTH_EVENTS) {
 
     /**
      * Ask the server to check if there is a username with a given
