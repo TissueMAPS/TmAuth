@@ -53,6 +53,33 @@ angular.module('tmauth.constants')
     guest: 'guest'
 });
 
+angular.module('tmauth.directives')
+.directive('tmInlineLoginForm', function() {
+
+    var template =
+        '<form class="tm-inline-login-form navbar-form navbar-right"' +
+              'ng-submit="auth.login()"' +
+              'ng-hide="auth.isAlreadyLoggedIn()">' +
+          '<div class="form-group">' +
+            '<input type="text" placeholder="username" class="form-control"' +
+                   'ng-model="auth.form.username">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<input type="password" placeholder="password" class="form-control"' +
+                   'ng-model="auth.form.password">' +
+          '</div>' +
+          '<button type="submit" class="btn btn-success">Sign in</button>' +
+        '</form>';
+
+    return {
+        template: template,
+        restrict: 'E',
+        controller: 'LoginCtrl',
+        controllerAs: 'auth'
+    };
+
+});
+
 angular.module('tmauth.controllers')
 .controller('LoginCtrl', ['$scope', '$rootScope', 'authService',
             function($scope, $rootScope, authService) {
@@ -90,33 +117,6 @@ angular.module('tmauth.controllers')
         });
     };
 }]);
-
-angular.module('tmauth.directives')
-.directive('tmInlineLoginForm', function() {
-
-    var template =
-        '<form class="tm-inline-login-form navbar-form navbar-right"' +
-              'ng-submit="auth.login()"' +
-              'ng-hide="auth.isAlreadyLoggedIn()">' +
-          '<div class="form-group">' +
-            '<input type="text" placeholder="username" class="form-control"' +
-                   'ng-model="auth.form.username">' +
-          '</div>' +
-          '<div class="form-group">' +
-            '<input type="password" placeholder="password" class="form-control"' +
-                   'ng-model="auth.form.password">' +
-          '</div>' +
-          '<button type="submit" class="btn btn-success">Sign in</button>' +
-        '</form>';
-
-    return {
-        template: template,
-        restrict: 'E',
-        controller: 'LoginCtrl',
-        controllerAs: 'auth'
-    };
-
-});
 
 angular.module('tmauth.services')
 // TODO: Add additional information such as first name, last name, etc.
@@ -162,8 +162,8 @@ angular.module('tmauth.services')
 }]);
 
 angular.module('tmauth.services')
-.service('authService', ['$http', 'session', 'User', 'jwtUtil', '$window', '$rootScope', 'AUTH_EVENTS',
-         function($http, session, User, jwtUtil, $window, $rootScope, AUTH_EVENTS) {
+.service('authService', ['$http', 'session', 'User', '$rootScope', 'AUTH_EVENTS',
+         function($http, session, User, $rootScope, AUTH_EVENTS) {
 
     /**
      * Ask the server to check if there is a username with a given
@@ -180,7 +180,7 @@ angular.module('tmauth.services')
         return $http
         .post('/auth', credentials)
         .success(function(data, status) {
-            var token = data.token;
+            var token = data.access_token;
             // TODO: sessionStorage not supported in all browsers,
             // include polyfill to make it supported.
             var user = session.create(token);
@@ -246,7 +246,7 @@ angular.module('tmauth.services')
 
     function isTokenExpired(token) {
         var decoded = decodeToken(token);
-        var exp = decoded.header.exp;
+        var exp = decoded.payload.exp;
         var d = new Date(0);
         d.setUTCSeconds(exp);
         return !(d.valueOf() > new Date().valueOf());
