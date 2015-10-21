@@ -17,7 +17,7 @@ angular.module('tmauth.services')
         return $http
         .post('/auth', credentials)
         .success(function(data, status) {
-            var token = data.token;
+            var token = data.access_token;
             // TODO: sessionStorage not supported in all browsers,
             // include polyfill to make it supported.
             var user = session.create(token);

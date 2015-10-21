@@ -6,9 +6,9 @@
         "email": "robin.hafen@gmail.com"
       },
       "libraryName": {
-        "original": "tmauth",
-        "camelized": "tmauth",
-        "dasherized": "tmauth",
+        "original": "TmAuth",
+        "camelized": "tmAuth",
+        "dasherized": "tm-auth",
         "slugified": "tmauth",
         "parts": [
           "tmauth"
