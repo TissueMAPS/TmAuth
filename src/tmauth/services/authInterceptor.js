@@ -5,7 +5,7 @@ angular.module('tmauth.services')
         config.headers = config.headers || {};
         var token = $window.sessionStorage.token;
         if (angular.isDefined(token)) {
-            config.headers.Authorization = 'Bearer ' + token;
+            config.headers.Authorization = 'JWT ' + token;
         }
         return config;
     }
