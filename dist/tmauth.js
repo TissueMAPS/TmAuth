@@ -53,33 +53,6 @@ angular.module('tmauth.constants')
     guest: 'guest'
 });
 
-angular.module('tmauth.directives')
-.directive('tmInlineLoginForm', function() {
-
-    var template =
-        '<form class="tm-inline-login-form navbar-form navbar-right"' +
-              'ng-submit="auth.login()"' +
-              'ng-hide="auth.isAlreadyLoggedIn()">' +
-          '<div class="form-group">' +
-            '<input type="text" placeholder="username" class="form-control"' +
-                   'ng-model="auth.form.username">' +
-          '</div>' +
-          '<div class="form-group">' +
-            '<input type="password" placeholder="password" class="form-control"' +
-                   'ng-model="auth.form.password">' +
-          '</div>' +
-          '<button type="submit" class="btn btn-success">Sign in</button>' +
-        '</form>';
-
-    return {
-        template: template,
-        restrict: 'E',
-        controller: 'LoginCtrl',
-        controllerAs: 'auth'
-    };
-
-});
-
 angular.module('tmauth.controllers')
 .controller('LoginCtrl', ['$scope', '$rootScope', 'authService',
             function($scope, $rootScope, authService) {
@@ -118,6 +91,33 @@ angular.module('tmauth.controllers')
     };
 }]);
 
+angular.module('tmauth.directives')
+.directive('tmInlineLoginForm', function() {
+
+    var template =
+        '<form class="tm-inline-login-form navbar-form navbar-right"' +
+              'ng-submit="auth.login()"' +
+              'ng-hide="auth.isAlreadyLoggedIn()">' +
+          '<div class="form-group">' +
+            '<input type="text" placeholder="username" class="form-control"' +
+                   'ng-model="auth.form.username">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<input type="password" placeholder="password" class="form-control"' +
+                   'ng-model="auth.form.password">' +
+          '</div>' +
+          '<button type="submit" class="btn btn-success">Sign in</button>' +
+        '</form>';
+
+    return {
+        template: template,
+        restrict: 'E',
+        controller: 'LoginCtrl',
+        controllerAs: 'auth'
+    };
+
+});
+
 angular.module('tmauth.services')
 // TODO: Add additional information such as first name, last name, etc.
 .factory('User', ['USER_ROLES', function(USER_ROLES) {
@@ -141,7 +141,7 @@ angular.module('tmauth.services')
         config.headers = config.headers || {};
         var token = $window.sessionStorage.token;
         if (angular.isDefined(token)) {
-            config.headers.Authorization = 'Bearer ' + token;
+            config.headers.Authorization = 'JWT ' + token;
         }
         return config;
     }
